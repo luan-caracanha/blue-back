@@ -1,6 +1,7 @@
 package br.com.blue.back.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -11,9 +12,11 @@ public class Votacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Usuario usuario;
 
+    @NotNull
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Empreendimento empreendimento;
 

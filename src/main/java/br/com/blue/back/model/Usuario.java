@@ -1,9 +1,8 @@
 package br.com.blue.back.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 
 @Entity
@@ -13,10 +12,15 @@ public class Usuario implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @NotBlank
     private String nome;
 
+    @Email
+    @NotBlank
+    @Column(unique=true)
     private String email;
 
+    @NotBlank
     private String senha;
 
     public Long getId() {
