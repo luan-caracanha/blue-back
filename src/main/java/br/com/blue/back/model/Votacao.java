@@ -1,8 +1,10 @@
 package br.com.blue.back.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 @Entity
@@ -12,11 +14,14 @@ public class Votacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @NotBlank
+    private LocalDateTime data;
+
+    @NotBlank
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Usuario usuario;
 
-    @NotNull
+    @NotBlank
     @OneToOne(fetch = FetchType.LAZY, optional = false)
     private Empreendimento empreendimento;
 
@@ -55,5 +60,13 @@ public class Votacao implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(getId());
+    }
+
+    public LocalDateTime getData() {
+        return data;
+    }
+
+    public void setData(LocalDateTime data) {
+        this.data = data;
     }
 }

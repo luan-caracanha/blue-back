@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,11 @@ public class EmpreendimentoService {
         } else {
             return new ResponseEntity("Empreendimento não encontrado", HttpStatus.BAD_REQUEST);
         }
+    }
+
+    public ResponseEntity<List<Empreendimento>> consultaTodos() {
+        List<Empreendimento> empreendimentos = empreendimentoRepository.findAll();
+        return ResponseEntity.ok(empreendimentos);
     }
 
 }
