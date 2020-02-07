@@ -1,6 +1,8 @@
 package br.com.blue.back.service;
 
+import br.com.blue.back.dto.GraficoDto;
 import br.com.blue.back.dto.VotacaoDto;
+import br.com.blue.back.model.Empreendimento;
 import br.com.blue.back.model.Votacao;
 import br.com.blue.back.repository.EmpreendimentoRepository;
 import br.com.blue.back.repository.UsuarioRepository;
@@ -11,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -51,5 +55,26 @@ public class VotacaoService {
 
         votacaoRepository.saveAndFlush(votacao);
         return ResponseEntity.ok(votacao);
+    }
+
+    public ResponseEntity<List<Votacao>> consultaTodos() {
+        List<Votacao> votacoes = votacaoRepository.findAll();
+        return ResponseEntity.ok(votacoes);
+    }
+    public ResponseEntity<List<GraficoDto>> consultaGrafico() {
+        List<GraficoDto> graficos = new ArrayList<>();
+
+        List<Empreendimento> empreendimentos = empreendimentoRepository.findAll();
+
+        empreendimentos.forEach(
+                empreendimento -> {
+                    GraficoDto graficoDto = new GraficoDto();
+                    graficoDto.setNomeEempreendimento(empreendimento.getNome());
+                    graficoDto.setVotos(votacaoRepository.countVotacaoByEmpreendimento(empreendimento));
+                    graficos.add(graficoDto);
+                }
+        );
+
+        return ResponseEntity.ok(graficos);
     }
 }

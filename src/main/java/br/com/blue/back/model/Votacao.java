@@ -14,15 +14,12 @@ public class Votacao implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotBlank
     private LocalDateTime data;
 
-    @NotBlank
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private Usuario usuario;
 
-    @NotBlank
-    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @OneToOne(fetch = FetchType.EAGER)
     private Empreendimento empreendimento;
 
     public Long getId() {
